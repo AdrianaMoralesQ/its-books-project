@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   padding: 3vw;
   border-radius: 10px;
   display: grid;
+  grid: 1fr 1fr;
 `;
 export const Header = styled.div`
   background-color: #68a0a6;
