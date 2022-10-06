@@ -16,7 +16,7 @@ export const ExistingPoll = ({ books, setNewPoll }: Props) => {
     const booksWithModifiedVotes = books.map((oneBook) => {
       const isSameBook = oneBook.name === book.name;
 
-      if (isSameBook) {
+      if (isSameBook && isLiked.length === 0) {
         if (!book.votes) {
           return {
             ...oneBook,

@@ -65,7 +65,7 @@ const Club = () => {
           (isOwned && ( */}
         <>
           <h2>
-            Owner: {getUsersByIDArray(users, [selectedClub.owner])[0].name}
+            {/* Owner: {getUsersByIDArray(users, [selectedClub.owner])[0].name} */}
           </h2>
           <h2>Members:</h2>
           <MemberNames
