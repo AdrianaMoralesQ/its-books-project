@@ -64,7 +64,7 @@ const Vote = () => {
     return club._id === query.id;
   });
   const [poll, setPoll] = useState(selectedClub?.poll || []);
-
+  console.log({ poll });
   function closeModal() {
     setModalType(undefined);
     setIsModalVisible(false);

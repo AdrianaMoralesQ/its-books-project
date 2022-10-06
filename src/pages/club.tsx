@@ -84,7 +84,7 @@ const Club = () => {
       <Content>
         <PinkWrapper>
           <h3>Poll:</h3>
-          {/* <ExistingPoll books={selectedClub.poll} /> */}
+          <ExistingPoll books={selectedClub.poll || []} />
           {/* {isAMember ||
             (isOwned && ( */}
           <>
