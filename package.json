@@ -1,0 +1,41 @@
+{
+  "name": "my-reading-club",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest --watch",
+    "test:ci": "jest --ci",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.tsx' --write"
+  },
+  "dependencies": {
+    "@auth0/auth0-react": "^1.11.0",
+    "@auth0/nextjs-auth0": "^1.9.1",
+    "mongodb": "^4.10.0",
+    "next": "12.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/node": "18.7.18",
+    "@types/react": "18.0.20",
+    "@types/react-dom": "18.0.6",
+    "@types/styled-components": "^5.1.26",
+    "babel-plugin-styled-components": "^2.0.7",
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.1",
+    "jest": "28.1.0",
+    "jest-environment-jsdom": "28.1.0",
+    "prettier": "^2.7.1",
+    "typescript": "4.8.3"
+  }
+}
