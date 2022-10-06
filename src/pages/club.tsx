@@ -40,7 +40,6 @@ const Club = () => {
 
   const isAMember = isMember(selectedUserObject, selectedClub);
 
-  // console.log({ isAMember, isOwned, selectedClub, selectedUserObject });
   const handleEditClub = () => {
     push('/create?isEditing=true');
   };
