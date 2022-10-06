@@ -45,7 +45,7 @@ const Dashboard = () => {
     <Wrapper>
       <Header>
         {/* <h1>Hi, {selectedUserObject?.name}!</h1> */}
-        <h1>Hi, {user?.name}</h1>
+        <h1>Hi {user?.name}!</h1>
         <h2>{`Welcome to your dashboard. Happy reading!`}</h2>
         <Button onClick={handleCreateClub}>
           <ImPlus /> Create a Club
@@ -62,10 +62,6 @@ const Dashboard = () => {
         </ClubWrapper>
         <ClubWrapper>
           <h2>Other book clubs: {allTheOthers.length}</h2>
-          <p>
-            The Book Club creator will need to accept your request to join a new
-            Book Club
-          </p>
           <BookClubs bookClubs={allTheOthers} />
         </ClubWrapper>
       </AllClubs>

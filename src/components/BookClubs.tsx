@@ -22,6 +22,7 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
   const {
     users,
     selectedUser,
+    selectedUserObject,
     clubs,
     deleteClub,
     setIsModalVisible,
@@ -35,9 +36,7 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
     return members.includes(selectedUser);
   };
 
-  // const isAnOwner = (owner: string) => {
-  //   return owner.includes(selectedUser);
-  // };
+  const isOwned = isOwner(selectedUserObject, selectedClub);
 
   const handleNavigateToClub = (id: string) => {
     push(`/club?id=${id}`);
@@ -57,26 +56,28 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
             Currently reading: <Title> {club.currentlyReading.name}</Title> by{' '}
             {club.currentlyReading.author}
           </p>
-          {isAMember(club.members) && (
-            <>
-              <h3>Members : </h3>
-              <MemberNames members={getUsersByIDArray(users, club.members)} />
-            </>
-          )}
+          {isAMember(club.members) ||
+            (isOwned && (
+              <>
+                <h3>Members : </h3>
+                <MemberNames members={getUsersByIDArray(users, club.members)} />
+              </>
+            ))}
           <Banner>
-            {!isAMember(club.members) && (
-              <Button
-                onClick={() => {
-                  setModalType(ModalTypes.JOIN);
-                  setIsModalVisible(true);
-                }}
-              >
-                <ImStarFull /> Join
-              </Button>
+            {!isAMember(club.members) ||
+              (isOwned && (
+                <Button
+                  onClick={() => {
+                    setModalType(ModalTypes.JOIN);
+                    setIsModalVisible(true);
+                  }}
+                >
+                  <ImStarFull /> Join
+                </Button>
+              ))}
+            {isOwned && (
+              <Button onClick={() => deleteClub([club])}>Delete</Button>
             )}
-            {/* {isAnOwner(club.owner) && ( */}
-            <Button onClick={() => deleteClub([club])}>Delete</Button>
-            {/* )} */}
           </Banner>
         </PinkWrapper>
       ))}

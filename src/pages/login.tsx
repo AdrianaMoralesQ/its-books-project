@@ -13,12 +13,7 @@ const Signin = () => {
     <Wrapper>
       {user ? (
         <div>
-          <div>
-            Hello {user.name}
-            <Link href="/api/auth/logout">
-              <a>Logout</a>
-            </Link>
-          </div>
+          <div>Hello {user.name}</div>
           <h2>User info</h2>
           <h4>{user.name}</h4>
           <h4>{user.email}</h4>
