@@ -16,11 +16,6 @@ type BooksContextData = {
   selectedUserObject: User | undefined;
   selectedClub: BookClub | null;
   setSelectedClub: any;
-  //added:
-  // setNewPoll: Book[];
-  // newPoll: Book[];
-  // books: Book[];
-  //
   isModalVisible: boolean;
   setIsModalVisible: (state: boolean) => void;
   modalType: ModalTypes | undefined;
@@ -31,7 +26,8 @@ type BooksProviderProps = any;
 export enum ModalTypes {
   JOIN = 'JOIN',
   RATE = 'RATE',
-  VOTE = 'VOTE'
+  VOTE = 'VOTE',
+  VISIT = 'VISIT'
 }
 export const BooksContext = createContext({} as BooksContextData);
 
@@ -43,7 +39,6 @@ export function BooksProvider({ children }: BooksProviderProps) {
   const [modalType, setModalType] = useState<ModalTypes | undefined>();
   const [selectedUser, setSelectedUser] = useState<UserID>('4');
   const [selectedClub, setSelectedClub] = useState<BookClub | null>(null);
-  // const [newPoll, setNewPoll] = useState<Book | null>();
 
   const { back, push } = useRouter();
 

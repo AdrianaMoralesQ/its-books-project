@@ -15,7 +15,7 @@ export const ExistingPoll = ({ books, setNewPoll }: Props) => {
   const handleClick = (book: Book) => {
     const booksWithModifiedVotes = books.map((oneBook) => {
       const isSameBook = oneBook.name === book.name;
-
+      // add if user_id has voted
       if (isSameBook && isLiked.length === 0) {
         if (!book.votes) {
           return {

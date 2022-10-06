@@ -56,23 +56,22 @@ const Club = () => {
     <Wrapper>
       <Header>
         <h1>{selectedClub.name}</h1>
-        {/* {isOwned && ( */}
-        <Button onClick={handleEditClub}>
-          <ImPencil /> Edit
-        </Button>
-        {/* )} */}
-        {/* {isAMember ||
-          (isOwned && ( */}
-        <>
-          <h2>
-            {/* Owner: {getUsersByIDArray(users, [selectedClub.owner])[0].name} */}
-          </h2>
-          <h2>Members:</h2>
-          <MemberNames
-            members={getUsersByIDArray(users, selectedClub.members)}
-          />
-        </>
-        {/* ))} */}
+        {isOwned && (
+          <Button onClick={handleEditClub}>
+            <ImPencil /> Edit
+          </Button>
+        )}
+        {isAMember && (
+          <>
+            {/* <h2>
+                Owner: {getUsersByIDArray(users, [selectedClub.owner])[0].name}
+              </h2> */}
+            <h2>Members:</h2>
+            <MemberNames
+              members={getUsersByIDArray(users, selectedClub.members)}
+            />
+          </>
+        )}
         <Currently>
           <h3>
             Currently reading:{' '}
@@ -85,35 +84,34 @@ const Club = () => {
         <PinkWrapper>
           <h3>Poll:</h3>
           <ExistingPoll books={selectedClub.poll || []} />
-          {/* {isAMember ||
-            (isOwned && ( */}
-          <>
-            <Button
-              onClick={() => {
-                setModalType(ModalTypes.VOTE);
-                setIsModalVisible(true);
-              }}
-            >
-              Vote
-            </Button>
-            <Button onClick={handlePoll}>New Poll</Button>
-          </>
-          {/* // ))} */}
+          {isAMember && (
+            <>
+              <Button
+                onClick={() => {
+                  setModalType(ModalTypes.VOTE);
+                  setIsModalVisible(true);
+                }}
+              >
+                Vote
+              </Button>
+            </>
+          )}
+          {isOwned && <Button onClick={handlePoll}>New Poll</Button>}
         </PinkWrapper>
         <BlueWrapper>
           <h3>Previously read:</h3>
           <PreviouslyRead books={selectedClub.previouslyRead} />
-          {/* {isAMember ||
-            (isOwned && ( */}
-          <Button
-            onClick={() => {
-              setModalType(ModalTypes.RATE);
-              setIsModalVisible(true);
-            }}
-          >
-            Rate them!
-          </Button>
-          {/* ))} */}
+          {isAMember ||
+            (isOwned && (
+              <Button
+                onClick={() => {
+                  setModalType(ModalTypes.RATE);
+                  setIsModalVisible(true);
+                }}
+              >
+                Rate them!
+              </Button>
+            ))}
         </BlueWrapper>
       </Content>
     </Wrapper>
@@ -121,6 +119,6 @@ const Club = () => {
 };
 
 export default Club;
-function setIsModalVisible(arg0: boolean) {
-  throw new Error('Function not implemented.');
-}
+// function setIsModalVisible(arg0: boolean) {
+//   throw new Error('Function not implemented.');
+// }

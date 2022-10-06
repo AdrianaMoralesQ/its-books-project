@@ -6,32 +6,14 @@ import styled from 'styled-components';
 import { BookClub } from 'types';
 import { ExistingPoll } from './Poll';
 import { PreviouslyRead } from './PreviouslyRead';
-import { Button } from './styled';
-
-const ModalWrapper = styled.div`
-  min-height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  z-index: 999;
-  position: fixed;
-  filter: opacity(0.9);
-  background-color: #68a0a6;
-  top: 0;
-  left: 0;
-`;
-
-const ModalContent = styled.div`
-  min-height: 50vh;
-  width: 50vw;
-  text-align: center;
-  margin: auto;
-  margin-top: 2rem;
-  border: 2px solid #183e4b;
-  border-radius: 6px;
-  background-color: #183e4b;
-  color: white;
-  padding: 1rem;
-`;
+import {
+  Account,
+  Button,
+  Features,
+  List,
+  ModalContent,
+  ModalWrapper
+} from './styled';
 
 const Join = () => {
   const { setIsModalVisible, setModalType } = useContext(BooksContext);
@@ -51,6 +33,52 @@ const Join = () => {
         {' '}
         <ImStarFull /> Send request{' '}
       </Button>
+    </>
+  );
+};
+
+const Visit = () => {
+  const { setIsModalVisible, setModalType } = useContext(BooksContext);
+  function closeModal() {
+    setModalType(undefined);
+    setIsModalVisible(false);
+  }
+  const { push, query } = useRouter();
+
+  const handleVisit = () => {
+    push('/dashboard');
+    closeModal();
+  };
+  return (
+    <>
+      <h1>Welcome to it's books! </h1>
+      <h3>
+        You can view a limited version of our site if you're not logged in,
+      </h3>
+      <h3>but you will need to create an account to unlock all features.</h3>
+      <p>
+        It's Books! is a virtual platform that allows you to create and join
+        book clubs.
+      </p>
+      <p>
+        From the Dashboard you'll be able to navigate to the different clubs by
+        clicking on them!
+      </p>
+      <p>
+        By navigating to a specific club, you'll be able to see what they're
+        reading,
+      </p>
+      <p>and how they rated previously read books!</p>
+      <Features>
+        <Account>
+          <h3> If you create an account with us you'll be able to:</h3>
+        </Account>
+        <p>Create your own Book Clubs and invite your friends!</p>
+        <p>Rate your previously read books!</p>
+        <p>Vote and suggest which books your club will read next!</p>
+        <p>Edit the Book Clubs you own!</p>
+      </Features>
+      <Button onClick={handleVisit}>Continue as Visitor</Button>
     </>
   );
 };
@@ -148,6 +176,7 @@ export const Modal = () => {
         {modalType === ModalTypes.JOIN && <Join />}
         {modalType === ModalTypes.RATE && <Rate />}
         {modalType === ModalTypes.VOTE && <Vote />}
+        {modalType === ModalTypes.VISIT && <Visit />}
       </ModalContent>
     </ModalWrapper>
   );

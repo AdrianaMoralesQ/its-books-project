@@ -132,3 +132,36 @@ export const Ratings = styled.div`
 export const BookPoll = styled.div`
   display: flex;
 `;
+export const ModalWrapper = styled.div`
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  z-index: 999;
+  position: fixed;
+  filter: opacity(0.9);
+  background-color: #68a0a6;
+  top: 0;
+  left: 0;
+`;
+
+export const ModalContent = styled.div`
+  min-height: 50vh;
+  width: 50vw;
+  text-align: center;
+  margin: auto;
+  margin-top: 2rem;
+  border: 2px solid #183e4b;
+  border-radius: 6px;
+  background-color: #183e4b;
+  color: white;
+  padding: 1rem;
+`;
+export const Features = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: #d9a7b0;
+`;
+export const Account = styled.div`
+  color: #d9a7b0;
+`;
