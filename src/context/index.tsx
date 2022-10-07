@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0';
 import * as api from 'context/api';
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
@@ -39,6 +40,20 @@ export function BooksProvider({ children }: BooksProviderProps) {
   const [modalType, setModalType] = useState<ModalTypes | undefined>();
   const [selectedUser, setSelectedUser] = useState<UserID>('4');
   const [selectedClub, setSelectedClub] = useState<BookClub | null>(null);
+  const { user } = useUser();
+  useEffect(() => {
+    if (user && users.length > 0) {
+      const userExists = users.find(
+        (userFromList) => userFromList.name === user.name
+      );
+      if (!userExists && user.name) {
+        createUser({
+          name: user.name,
+          bookClubs: []
+        });
+      }
+    }
+  }, [user, users]);
 
   const { back, push } = useRouter();
 
@@ -74,6 +89,15 @@ export function BooksProvider({ children }: BooksProviderProps) {
     const { data }: Response<User[]> = await req.json();
     setUsers(data);
   }
+  async function createUser(user: User) {
+    const req = await fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers
+    });
+    const { data }: Response<User[]> = await req.json();
+    setUsers(data);
+  }
 
   async function updateClub(clubs: api.UpdateProps) {
     setIsLoading(true);
@@ -91,6 +115,7 @@ export function BooksProvider({ children }: BooksProviderProps) {
   }, []);
 
   useEffect(() => {
+    console.log(users.map((u) => u.name));
     if (users?.length > 0) {
       setSelectedUser(users[4]._id);
     }
