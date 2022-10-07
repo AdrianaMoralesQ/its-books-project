@@ -26,7 +26,8 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
     clubs,
     deleteClub,
     setIsModalVisible,
-    setModalType
+    setModalType,
+    setSelectedClub
   } = useContext(BooksContext);
 
   const selectedClub = clubs.find((club) => {
@@ -68,6 +69,7 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
                 onClick={() => {
                   setModalType(ModalTypes.JOIN);
                   setIsModalVisible(true);
+                  setSelectedClub(club);
                 }}
               >
                 <ImStarFull /> Join

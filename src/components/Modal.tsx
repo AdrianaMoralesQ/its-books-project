@@ -16,10 +16,23 @@ import {
 } from './styled';
 
 const Join = () => {
-  const { setIsModalVisible, setModalType } = useContext(BooksContext);
+  const {
+    setIsModalVisible,
+    setModalType,
+    updateClub,
+    selectedClub,
+    selectedUser
+  } = useContext(BooksContext);
   function closeModal() {
     setModalType(undefined);
     setIsModalVisible(false);
+    if (selectedClub) {
+      const updatedClub: BookClub = {
+        ...selectedClub,
+        members: [...selectedClub.members, selectedUser]
+      };
+      updateClub([updatedClub] as BookClub[]);
+    }
   }
   return (
     <>

@@ -14,7 +14,7 @@ import {
 } from 'components/styled';
 import { BooksContext, ModalTypes } from 'context';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ImPencil } from 'react-icons/im';
 import { getUsersByIDArray, isMember, isOwner } from 'utils';
 import { useUser } from '@auth0/nextjs-auth0';
@@ -30,6 +30,7 @@ const Club = () => {
     setModalType
   } = useContext(BooksContext);
   const { push, query } = useRouter();
+  const [canVote, setCanVote] = useState(true);
 
   const selectedClub = clubs.find((club) => {
     return club._id === query.id;
@@ -40,6 +41,9 @@ const Club = () => {
 
   const isAMember = isMember(selectedUserObject, selectedClub);
 
+  const handleClose = () => {
+    setCanVote(false);
+  };
   const handleEditClub = () => {
     push('/create?isEditing=true');
   };
@@ -86,6 +90,7 @@ const Club = () => {
           {isAMember && (
             <>
               <Button
+                disabled={!canVote}
                 onClick={() => {
                   setModalType(ModalTypes.VOTE);
                   setIsModalVisible(true);
@@ -96,6 +101,7 @@ const Club = () => {
             </>
           )}
           {isOwned && <Button onClick={handlePoll}>New Poll</Button>}
+          {isOwned && <Button onClick={handleClose}>Close</Button>}
         </PinkWrapper>
         <BlueWrapper>
           <h3>Previously read:</h3>

@@ -119,7 +119,10 @@ export function BooksProvider({ children }: BooksProviderProps) {
       const userExists = users.find(
         (userFromList) => userFromList.name === user.name
       );
-      setSelectedUser(userExists ? userExists._id : users[4]._id);
+      // for demo
+      setSelectedUser(users[4]._id);
+      //   setSelectedUser(userExists ? userExists._id : users[4]._id);
+      //
     }
   }, [users]);
 
