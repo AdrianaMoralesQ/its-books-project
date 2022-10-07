@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { mockUsers } from 'mockData/books';
+import { ObjectId, OptionalId, WithId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Errors } from 'server/errors';
 import { mongoClient } from 'server/mongo';
@@ -40,6 +41,26 @@ export default async function handler(
     return;
   }
 
+  if (req.method === 'POST') {
+    const { body: parsedBody }: { body: User } = req;
+    const dbRes = await db
+      .collection<OptionalId<User>>('users')
+      .insertOne(parsedBody);
+
+    client.close();
+    res.status(200).json({ data: dbRes });
+    return;
+  }
+  if (req.method === 'DELETE') {
+    const { body: parsedBody }: { body: User } = req;
+    const dbRes = await db
+      .collection<WithId<User[]>>('users')
+      .deleteOne({ _id: new ObjectId(parsedBody._id) });
+
+    client.close();
+    res.status(200).json({ data: dbRes });
+    return;
+  }
   if (req.method === 'GET') {
     const collection = await db.collection<User[]>('users').find({}).toArray();
     client.close();

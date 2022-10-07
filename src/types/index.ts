@@ -37,7 +37,7 @@ export type BookClub = {
 };
 
 export type User = {
-  _id: string;
+  _id?: string;
   name: string;
   bookClubs?: BookClubID[];
 };

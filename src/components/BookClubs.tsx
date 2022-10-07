@@ -56,13 +56,12 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
             Currently reading: <Title> {club.currentlyReading.name}</Title> by{' '}
             {club.currentlyReading.author}
           </p>
-          {isAMember(club.members) ||
-            (isOwned && (
-              <>
-                <h3>Members : </h3>
-                <MemberNames members={getUsersByIDArray(users, club.members)} />
-              </>
-            ))}
+          {isAMember(club.members) && (
+            <>
+              <h3>Members : </h3>
+              <MemberNames members={getUsersByIDArray(users, club.members)} />
+            </>
+          )}
           <Banner>
             {!isAMember(club.members) && (
               <Button
