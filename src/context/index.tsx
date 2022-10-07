@@ -115,9 +115,11 @@ export function BooksProvider({ children }: BooksProviderProps) {
   }, []);
 
   useEffect(() => {
-    console.log(users.map((u) => u.name));
-    if (users?.length > 0) {
-      setSelectedUser(users[4]._id);
+    if (users?.length > 0 && user) {
+      const userExists = users.find(
+        (userFromList) => userFromList.name === user.name
+      );
+      setSelectedUser(userExists ? userExists._id : users[4]._id);
     }
   }, [users]);
 
