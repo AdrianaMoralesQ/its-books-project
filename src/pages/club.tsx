@@ -19,7 +19,7 @@ import { ImPencil } from 'react-icons/im';
 import { getUsersByIDArray, isMember, isOwner } from 'utils';
 import { useUser } from '@auth0/nextjs-auth0';
 import { Book } from 'types';
-
+// Renders Club page
 const Club = () => {
   const {
     clubs,
@@ -31,23 +31,25 @@ const Club = () => {
   } = useContext(BooksContext);
   const { push, query } = useRouter();
   const [canVote, setCanVote] = useState(true);
-
+  // finds and sets specific club using query
   const selectedClub = clubs.find((club) => {
     return club._id === query.id;
   });
   setSelectedClub(selectedClub);
-
+  // will filter if club is owned
   const isOwned = isOwner(selectedUserObject, selectedClub);
-
+  // will filter is member does not own, aka is just member of club
   const isAMember = isMember(selectedUserObject, selectedClub);
-
+  // closes poll modal, and changes status of can vote so user cannot vote.
   const handleClose = () => {
     setCanVote(false);
   };
+  // navigates to create (form) but changes params to "editing" so club owner can edit selected club, not create new one.
   const handleEditClub = () => {
     push('/create?isEditing=true');
   };
   const { user } = useUser();
+  // navigates to poll component
   const handlePoll = () => {
     push('/poll');
   };
@@ -124,6 +126,3 @@ const Club = () => {
 };
 
 export default Club;
-// function setIsModalVisible(arg0: boolean) {
-//   throw new Error('Function not implemented.');
-// }

@@ -8,10 +8,15 @@ import 'styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
+    // wraps app in Auth0 user
     <UserProvider>
+      {/* wraps content in Books Provider context data */}
       <BooksProvider>
+        {/* adds modal components */}
         <Modal />
+        {/* App layout */}
         <Layout>
+          {/* provides relevant errors*/}
           <ErrorBoundary>
             <Component {...pageProps} />
           </ErrorBoundary>

@@ -13,14 +13,15 @@ import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { BookClub } from 'types';
 import { getUsersByIDArray } from 'utils';
-
+// empty values to be used in form when creating club
 const emptyValues = {
   name: '',
   currentlyReading: '',
   members: '',
   author: ''
 };
-
+// Creates new club OR allows for editing existing club.
+// this is a form with inputs, updates mongo
 const CreateClub = () => {
   const {
     users,
@@ -31,21 +32,22 @@ const CreateClub = () => {
     updateClub,
     addClub
   } = useContext(BooksContext);
-
+  // will display members in club
   const [selectedMembers, setSelectedMembers] = useState(
     selectedClub?.members || []
   );
+  // initial form values for existing club or empty "" for new club.
   const [formValue, setFormValue] = useState({
     name: selectedClub?.name || '',
     currentlyReading: selectedClub?.currentlyReading.name || '',
     members: '',
     author: selectedClub?.currentlyReading.author || ''
   });
-
+  // uses query to determine whether the club is being created or being edited.
   const { query, back } = useRouter();
 
   const isEditing = query.isEditing;
-
+  // if user is not using editing query, aka, is creating club then render:
   useEffect(() => {
     if (!isEditing) {
       setFormValue({
@@ -54,16 +56,16 @@ const CreateClub = () => {
       setSelectedClub(null);
     }
   }, []);
-
+  // in members section, will filter array of members if input matches part of name
   const usersFilteredByInput = users.filter((user) =>
     user.name.toLowerCase().includes(formValue.members.toLowerCase())
   );
-
+  // finds name and pushes it to members
   const handleSelect = (name: string) => {
     if (selectedMembers.includes(name)) return;
     setSelectedMembers([...selectedMembers, name]);
   };
-
+  // updates with changes value
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormValue((prevState) => {
@@ -73,10 +75,10 @@ const CreateClub = () => {
       };
     });
   };
-
+  // on Submit creates or edits the form.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    // IF editing updates exisiting club in db.
     if (isEditing) {
       const updatedClub = {
         ...selectedClub,
@@ -92,6 +94,7 @@ const CreateClub = () => {
       updateClub([updatedClub] as BookClub[]);
       return;
     }
+    // if creating it adds it.
     const newClub: BookClub = {
       _id: '',
       name: formValue.name,
@@ -107,7 +110,7 @@ const CreateClub = () => {
     };
     addClub(newClub);
   };
-
+  // clicking on member names will remove them from club.
   const handleRemoveMember = (userID: string) => {
     setSelectedMembers(
       selectedMembers.filter((memberID) => {

@@ -1,3 +1,4 @@
+// if connection has errors:
 export const Errors = {
   mongo: {
     error: `There was an error with the database`
