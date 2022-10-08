@@ -7,6 +7,11 @@ type Props = {
   books: Book[];
   setPreviouslyRead?: any;
 };
+// is called in Modal and Club
+// returns list of books to be voted on
+// checks if book has been liked before and setsState accordingly to prevent user from voting twice.
+// adds one vote per click.
+// maps over array of books and filters by _id.
 
 export const PreviouslyRead = ({ books, setPreviouslyRead }: Props) => {
   const [isLiked, setisLiked] = useState<string[]>([]);
