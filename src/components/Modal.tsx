@@ -1,8 +1,9 @@
+// Holds all modals.
+
 import { BooksContext, ModalTypes } from 'context';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { ImStarFull } from 'react-icons/im';
-import styled from 'styled-components';
 import { BookClub } from 'types';
 import { ExistingPoll } from './Poll';
 import { PreviouslyRead } from './PreviouslyRead';
@@ -10,11 +11,11 @@ import {
   Account,
   Button,
   Features,
-  List,
   ModalContent,
   ModalWrapper
 } from './styled';
-
+// From dashboard, after clicking on Join (clubs you do not belong to)
+// adds you to club by adding selected user (current user - you), to the specific club's members.
 const Join = () => {
   const {
     setIsModalVisible,
@@ -37,19 +38,17 @@ const Join = () => {
   return (
     <>
       <h1>Want to join this club? </h1>
-      <h3>
-        Pressing the submit button below will send a request to the club owner.
-      </h3>
-      <h3>The owner will need to accept your request to join this club. </h3>
+      <h3>Pressing the Join button below will add you to the club.</h3>
       <h3>Happy reading!</h3>
       <Button onClick={closeModal}>
         {' '}
-        <ImStarFull /> Send request{' '}
+        <ImStarFull /> Join!{' '}
       </Button>
     </>
   );
 };
-
+// Modal for people visiting site without a member login
+// This takes them to dashboard with filtered information
 const Visit = () => {
   const { setIsModalVisible, setModalType } = useContext(BooksContext);
   function closeModal() {
@@ -95,7 +94,11 @@ const Visit = () => {
     </>
   );
 };
-
+//From specific club (uses query to find this) page
+// calls ExisitingPoll, to get the array of books to be polled (poll is array of book) in specific club, prints them
+// on click adds vote to one book.
+// ExistingPoll also contains add 1 vote function
+// Updates BookClub
 const Vote = () => {
   const { clubs, updateClub, setIsModalVisible, setModalType } =
     useContext(BooksContext);
@@ -105,7 +108,7 @@ const Vote = () => {
     return club._id === query.id;
   });
   const [poll, setPoll] = useState(selectedClub?.poll || []);
-  console.log({ poll });
+
   function closeModal() {
     setModalType(undefined);
     setIsModalVisible(false);
@@ -130,6 +133,11 @@ const Vote = () => {
   );
 };
 
+//From specific club (uses query to find this) page
+// calls PreviouslyRead, to get the array of books to be rated (previouslyRead is array of book) in specific club, prints them
+// on click adds vote to one book.
+// PreviouslyRead also contains add 1 vote function
+// Updates BookClub
 const Rate = () => {
   const { clubs, updateClub, setIsModalVisible, setModalType } =
     useContext(BooksContext);
@@ -168,7 +176,7 @@ const Rate = () => {
     </>
   );
 };
-
+// Modal container
 export const Modal = () => {
   const { isModalVisible, setIsModalVisible, modalType, setModalType } =
     useContext(BooksContext);
