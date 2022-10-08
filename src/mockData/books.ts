@@ -2,10 +2,14 @@ import { Book, BookClub, User, UserID } from 'types';
 import { generateArrayOfObjects, randomNumberInRange } from 'utils';
 import { faker } from '@faker-js/faker';
 
+// fake data generation numbers:
 const MEMBERS_TO_GENERATE_PER_CLUB = 5;
 const BOOKS_TO_GENERATE = 50;
 const USERS_TO_GENERATE = 50;
 
+// used faker to create array of books.
+// Assigned votes/ratings to them with random number function.
+// every book needs _id, name, author first and last name, rating and votes.
 export const mockBooks: Book[] = generateArrayOfObjects<Book>(
   BOOKS_TO_GENERATE,
   (i) => ({
@@ -16,7 +20,7 @@ export const mockBooks: Book[] = generateArrayOfObjects<Book>(
     votes: randomNumberInRange(1, 5)
   })
 );
-
+// fake users have id, fake first and last names as well as an array of BookClubs they belong to.
 export const mockUsers: User[] = generateArrayOfObjects<User>(
   USERS_TO_GENERATE,
   (i) => ({
@@ -25,7 +29,7 @@ export const mockUsers: User[] = generateArrayOfObjects<User>(
     bookClubs: []
   })
 );
-
+// Generates users per club (random num in rage),
 const generateMembers = () =>
   Object.values(
     generateArrayOfObjects<{ id: number }>(
@@ -35,7 +39,7 @@ const generateMembers = () =>
       })
     ).map((d) => d.id.toString())
   );
-
+// creates fake books as no actual library is being used.
 export const mockBookClubs: BookClub[] = generateArrayOfObjects<BookClub>(
   BOOKS_TO_GENERATE,
   (i) => ({
