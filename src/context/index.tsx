@@ -5,7 +5,7 @@ import { createContext, useEffect, useState } from 'react';
 import { Book, BookClub, Response, User, UserID } from 'types';
 
 const headers = { 'Content-Type': 'application/json' };
-
+// Books content contains all relevant data, props and states called throughout app.
 type BooksContextData = {
   updateClub: (club: api.UpdateProps) => void;
   addClub: (club: api.AddProps) => void;
@@ -22,7 +22,7 @@ type BooksContextData = {
   modalType: ModalTypes | undefined;
   setModalType: (type: ModalTypes | undefined) => void;
 };
-
+// exports types of Modals for Modals
 type BooksProviderProps = any;
 export enum ModalTypes {
   JOIN = 'JOIN',
@@ -41,6 +41,8 @@ export function BooksProvider({ children }: BooksProviderProps) {
   const [selectedUser, setSelectedUser] = useState<UserID>('4');
   const [selectedClub, setSelectedClub] = useState<BookClub | null>(null);
   const { user } = useUser();
+
+  // For Auth0 to work. Checks if exisiting user/else creates new user.
   useEffect(() => {
     if (user && users.length > 0) {
       const userExists = users.find(
@@ -54,11 +56,11 @@ export function BooksProvider({ children }: BooksProviderProps) {
       }
     }
   }, [user, users]);
-
+  // to be called to go back or push to specific url
   const { back, push } = useRouter();
-
+  // provides specific user by filtering out selected user froms users[]
   const selectedUserObject = users.find((user) => selectedUser === user._id);
-
+  // fetches clubs
   const getClubs = async () => {
     const res = await api.getClubs();
     if (res) {
@@ -66,14 +68,14 @@ export function BooksProvider({ children }: BooksProviderProps) {
     }
     return res;
   };
-
+  // deletes club from DB
   const deleteClub = async (clubsToDelete: api.DeleteProps) => {
     const res = await api.deleteClub(clubsToDelete);
     if (res) {
       await getClubs();
     }
   };
-
+  // adds club to db
   const addClub = async (clubToAdd: api.AddProps) => {
     setIsLoading(true);
     const insertedID = await api.createBookClub(clubToAdd);
@@ -83,12 +85,13 @@ export function BooksProvider({ children }: BooksProviderProps) {
       push(`club?id=${insertedID}`);
     }
   };
-
+  // gets users from DB
   async function getUsers() {
     const req = await fetch('/api/users');
     const { data }: Response<User[]> = await req.json();
     setUsers(data);
   }
+  // creates new user and POSTs to DB
   async function createUser(user: User) {
     const req = await fetch('/api/users', {
       method: 'POST',
@@ -98,7 +101,7 @@ export function BooksProvider({ children }: BooksProviderProps) {
     const { data }: Response<User[]> = await req.json();
     setUsers(data);
   }
-
+  // updates clubs and updates using api handler(PATCH)
   async function updateClub(clubs: api.UpdateProps) {
     setIsLoading(true);
     const res = await api.updateBookClub(clubs);
@@ -113,7 +116,7 @@ export function BooksProvider({ children }: BooksProviderProps) {
     getUsers();
     getClubs();
   }, []);
-
+  // for logged in User, takes Auth0 user and makes this specific user profile.
   useEffect(() => {
     if (users?.length > 0 && user) {
       const userExists = users.find(
