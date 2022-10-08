@@ -12,16 +12,17 @@ import { BooksContext } from 'context';
 import { updateBookClub } from 'context/api';
 import { useRouter } from 'next/router';
 import { BookClubs } from 'components/BookClubs';
-
+// Poll component, uses selected club
 const Poll = () => {
   const { selectedClub } = useContext(BooksContext);
   const [polls, setPolls] = useState<number[]>([1]);
   const { push, query } = useRouter();
+  // when creating a new poll, sets input value to empty.
   const [formValue, setFormValue] = useState<any>({
     name: '',
     author: ''
   });
-
+  // on change replaces previous state with newPoll values
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormValue((prevState: any) => {
@@ -31,20 +32,20 @@ const Poll = () => {
       };
     });
   };
-
+  // adds form inputs for author.
   const addFormFields = () => {
     setPolls([...polls, polls.length + 1]);
   };
-
+  // on submit creates a new poll.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    //new poll uses Book[] but only replaces id, name and author.
     const newPoll: Book[] = polls.map((_, i) => ({
       _id: '',
       name: formValue[`name${i}`],
       author: formValue[`author${i}`]
     }));
-
+    // updates BookClub[] in db
     const updatedBookClub = { ...selectedClub, poll: newPoll };
     console.log(newPoll);
     console.log(selectedClub?.poll);

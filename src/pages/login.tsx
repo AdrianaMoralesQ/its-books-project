@@ -3,11 +3,12 @@ import { Button, Wrapper } from 'components/styled';
 import { BooksContext, ModalTypes } from 'context';
 import Link from 'next/link';
 import { useContext } from 'react';
-
+// login page
 const Signin = () => {
+  // takes user from Auth0
   const { user, error } = useUser();
+  // makes modal available
   const { setIsModalVisible, setModalType } = useContext(BooksContext);
-  console.log({ user, error });
 
   return (
     <Wrapper>
@@ -28,6 +29,7 @@ const Signin = () => {
             </a>
           </h3>
           <h3
+            style={{ color: '#ffefd5' }}
             onClick={() => {
               setModalType(ModalTypes.VISIT);
               setIsModalVisible(true);
