@@ -22,23 +22,24 @@ const Dashboard = () => {
   const { push } = useRouter();
 
   const bookClubsIOwn = bookClubs.filter(
-    /* returns where the owner and my id match */
+    //  returns where the owner and my id match
     (bookClub) => bookClub.owner === selectedUser
   );
   const bookClubsIBelongTo = bookClubs.filter(
-    /* returns where the owner and my id match */
+    //  returns where the owner and my id match
     (bookClub) => bookClub.members.includes(selectedUser)
   );
-
+  // returns when the club matches my id
   const allTheOthers = bookClubs.filter(
     (club) => !club.members.includes(selectedUser)
   );
+  // Auth0 user
   const { user } = useUser();
-
+  // takes you to create page
   const handleCreateClub = () => {
     push('/create');
   };
-
+  // if not logged in asks user to login
   if (!selectedUserObject) return <div>please log in</div>;
 
   return (
