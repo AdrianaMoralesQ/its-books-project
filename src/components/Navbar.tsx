@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { GiBookshelf, GiCat } from 'react-icons/gi';
 import { ImHome3, ImPlus } from 'react-icons/im';
 import { Home, NavWrapper } from './styled';
+
+// uses user from Auth0 to determine whether user is logged in or not/toggles between sign-in/log-out.
+// contains links to all pages.
 export const Navbar = () => {
   const { user } = useUser();
   return (
