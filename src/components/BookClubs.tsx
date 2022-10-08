@@ -7,16 +7,15 @@ import { BooksContext, ModalTypes } from 'context';
 import { useContext } from 'react';
 import { MemberNames } from './Members';
 
-/*
-This is the Book Club component
-it takes props ([bookClubs]) which is an array of the BookClub object.
- */
+// This is the Book Club component.
+// it takes props ([bookClubs]) which is an array of the BookClub object.
+
 type BookClubProps = {
   bookClubs: BookClub[];
   isOwner?: boolean;
   isMember?: boolean;
 };
-/* Book clubs component maps over book clubs */
+// Book clubs component maps over book clubs
 export const BookClubs = ({ bookClubs }: BookClubProps) => {
   const { push, query } = useRouter();
   const {
@@ -29,16 +28,20 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
     setModalType,
     setSelectedClub
   } = useContext(BooksContext);
+  // finds a specific club using query
 
   const selectedClub = clubs.find((club) => {
     return club._id === query.id;
   });
+  // checks if specific user is part of the array of members.
+  // Is used to filter what members vs.what owners and non - logged in users can view.
   const isAMember = (members: string[]) => {
     return members.includes(selectedUser);
   };
-
+  // checks if selected user is owner of club.
+  // Is used to filter what members vs.what owners and non - logged in users can view.
   const isOwned = isOwner(selectedUserObject, selectedClub);
-
+  // navigates to specific club based on id
   const handleNavigateToClub = (id: string) => {
     push(`/club?id=${id}`);
   };
