@@ -11,6 +11,7 @@ import { ImPlus } from 'react-icons/im';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
+import { isOwner } from 'utils';
 
 const Dashboard = () => {
   const {
@@ -40,7 +41,7 @@ const Dashboard = () => {
     push('/create');
   };
   // if not logged in asks user to login
-  if (!selectedUserObject) return <div>please log in</div>;
+  // if (!selectedUserObject) return <div>please log in</div>;
 
   return (
     <Wrapper>
@@ -48,9 +49,13 @@ const Dashboard = () => {
         {/* <h1>Hi, {selectedUserObject?.name}!</h1> */}
         <h1>Hi {user?.name}!</h1>
         <h2>{`Welcome to your dashboard. Happy reading!`}</h2>
-        <Button onClick={handleCreateClub}>
-          <ImPlus /> Create a Club
-        </Button>
+        <>
+          {selectedUserObject && (
+            <Button onClick={handleCreateClub}>
+              <ImPlus /> Create a Club
+            </Button>
+          )}
+        </>
       </Header>
       <AllClubs>
         <ClubWrapper>

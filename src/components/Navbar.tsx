@@ -23,11 +23,11 @@ export const Navbar = () => {
             {''} Dashboard
           </a>
         </Link>
-        <Link href={'/create'}>
+        {/* <Link href={'/create'}>
           <a>
             <ImPlus /> Create
           </a>
-        </Link>
+        </Link> */}
 
         {user ? (
           <>

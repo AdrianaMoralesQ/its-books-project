@@ -38,7 +38,7 @@ const Club = () => {
   setSelectedClub(selectedClub);
   // will filter if club is owned
   const isOwned = isOwner(selectedUserObject, selectedClub);
-  // will filter is member does not own, aka is just member of club
+  // will filter if member does not own, aka is just member of club
   const isAMember = isMember(selectedUserObject, selectedClub);
   // closes poll modal, and changes status of can vote so user cannot vote.
   const handleClose = () => {
@@ -102,23 +102,22 @@ const Club = () => {
               </Button>
             </>
           )}
-          {isOwned && <Button onClick={handlePoll}>New Poll</Button>}
-          {isOwned && <Button onClick={handleClose}>Close</Button>}
+          {isOwned && <Button onClick={handlePoll}>New Poll</Button>}{' '}
+          {isAMember && <Button onClick={handleClose}>Close</Button>}
         </PinkWrapper>
         <BlueWrapper>
           <h3>Previously read:</h3>
           <PreviouslyRead books={selectedClub.previouslyRead} />
-          {isAMember ||
-            (isOwned && (
-              <Button
-                onClick={() => {
-                  setModalType(ModalTypes.RATE);
-                  setIsModalVisible(true);
-                }}
-              >
-                Rate them!
-              </Button>
-            ))}
+          {isAMember && (
+            <Button
+              onClick={() => {
+                setModalType(ModalTypes.RATE);
+                setIsModalVisible(true);
+              }}
+            >
+              Rate them!
+            </Button>
+          )}
         </BlueWrapper>
       </Content>
     </Wrapper>

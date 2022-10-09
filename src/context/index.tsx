@@ -58,7 +58,7 @@ export function BooksProvider({ children }: BooksProviderProps) {
   }, [user, users]);
   // to be called to go back or push to specific url
   const { back, push } = useRouter();
-  // provides specific user by filtering out selected user froms users[]
+  // provides specific user by filtering out selected user from users[]
   const selectedUserObject = users.find((user) => selectedUser === user._id);
   // fetches clubs
   const getClubs = async () => {
@@ -124,7 +124,7 @@ export function BooksProvider({ children }: BooksProviderProps) {
       );
       // for demo
       setSelectedUser(users[4]._id);
-      //   setSelectedUser(userExists ? userExists._id : users[4]._id);
+      // setSelectedUser(userExists ? userExists._id : users[4]._id);
       //
     }
   }, [users]);

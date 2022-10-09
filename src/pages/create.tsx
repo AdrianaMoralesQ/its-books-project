@@ -131,7 +131,7 @@ const CreateClub = () => {
   return (
     <Wrapper>
       <Header>
-        <h1>Hi, {selectedUserObject?.name}!</h1>
+        {/* <h1>Hi, {selectedUserObject?.name}!</h1> */}
         {isEditing && (
           <h3>
             Are you sure you want to edit this Book Club? Please edit the fields

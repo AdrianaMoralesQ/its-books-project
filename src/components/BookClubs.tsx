@@ -67,7 +67,7 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
             </>
           )}
           <Banner>
-            {!isAMember(club.members) && (
+            {!isAMember(club.members) && selectedUserObject && (
               <Button
                 onClick={() => {
                   setModalType(ModalTypes.JOIN);
@@ -78,7 +78,7 @@ export const BookClubs = ({ bookClubs }: BookClubProps) => {
                 <ImStarFull /> Join
               </Button>
             )}
-            {isOwned && (
+            {isAMember(club.members) && (
               <Button onClick={() => deleteClub([club])}>Delete</Button>
             )}
           </Banner>
